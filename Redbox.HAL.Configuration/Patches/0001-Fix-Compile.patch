@@ -1,0 +1,94 @@
+From bc624b117377bd139ffcb451aacc8e3d9c99dc02 Mon Sep 17 00:00:00 2001
+From: Puyodead1 <puyodead@proton.me>
+Date: Mon, 25 Nov 2024 20:09:16 -0500
+Subject: [PATCH] Fix Compile
+
+---
+ .../Redbox.HAL.Configuration.csproj              | 16 ++++++++++++----
+ .../Redbox.HAL.Configuration.sln                 | 16 +++++++++++++---
+ 2 files changed, 25 insertions(+), 7 deletions(-)
+
+diff --git a/Redbox.HAL.Configuration/Redbox.HAL.Configuration.csproj b/Redbox.HAL.Configuration/Redbox.HAL.Configuration.csproj
+index e96e273..8eaee88 100644
+--- a/Redbox.HAL.Configuration/Redbox.HAL.Configuration.csproj
++++ b/Redbox.HAL.Configuration/Redbox.HAL.Configuration.csproj
+@@ -1,5 +1,5 @@
+ ﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <!--Project was exported from assembly: U:\2024_11_07_kiosk2_fresh\Program Files\Redbox\halservice\bin\Redbox.HAL.Configuration.dll-->
+   <PropertyGroup>
+     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+@@ -11,6 +11,11 @@
+     <ApplicationVersion>1.13.0.27</ApplicationVersion>
+     <FileAlignment>512</FileAlignment>
+     <RootNamespace>Redbox.HAL.Configuration</RootNamespace>
++    <FileUpgradeFlags>
++    </FileUpgradeFlags>
++    <UpgradeBackupLocation>
++    </UpgradeBackupLocation>
++    <OldToolsVersion>3.5</OldToolsVersion>
+   </PropertyGroup>
+   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+     <PlatformTarget>AnyCPU</PlatformTarget>
+@@ -32,9 +37,6 @@
+     <WarningLevel>4</WarningLevel>
+   </PropertyGroup>
+   <ItemGroup>
+-    <Reference Include="Redbox.HAL.Component.Model">
+-      <HintPath>lib\Redbox.HAL.Component.Model.dll</HintPath>
+-    </Reference>
+     <Reference Include="System" />
+     <Reference Include="System.Core" />
+     <Reference Include="System.Xml" />
+@@ -54,5 +56,11 @@
+     <Compile Include="RedboxConfigurationFile.cs" />
+     <Compile Include="AssemblyInfo.cs" />
+   </ItemGroup>
++  <ItemGroup>
++    <ProjectReference Include="..\..\..\Redbox.HAL.Component.Model\export\Redbox.HAL.Component.Model\Redbox.HAL.Component.Model.csproj">
++      <Project>{86986977-3d6f-4f59-bc0c-d181e7c4d334}</Project>
++      <Name>Redbox.HAL.Component.Model</Name>
++    </ProjectReference>
++  </ItemGroup>
+   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+ </Project>
+\ No newline at end of file
+diff --git a/Redbox.HAL.Configuration/Redbox.HAL.Configuration.sln b/Redbox.HAL.Configuration/Redbox.HAL.Configuration.sln
+index a715ee6..39c710a 100644
+--- a/Redbox.HAL.Configuration/Redbox.HAL.Configuration.sln
++++ b/Redbox.HAL.Configuration/Redbox.HAL.Configuration.sln
+@@ -1,8 +1,11 @@
+-
+-Microsoft Visual Studio Solution File, Format Version 10.00
+-# Visual Studio 2008
++Microsoft Visual Studio Solution File, Format Version 12.00
++# Visual Studio Version 17
++VisualStudioVersion = 17.10.35122.118
++MinimumVisualStudioVersion = 10.0.40219.1
+ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redbox.HAL.Configuration", "Redbox.HAL.Configuration.csproj", "{E54FA238-238A-42CE-A889-21031A2B2421}"
+ EndProject
++Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redbox.HAL.Component.Model", "..\..\..\Redbox.HAL.Component.Model\export\Redbox.HAL.Component.Model\Redbox.HAL.Component.Model.csproj", "{86986977-3D6F-4F59-BC0C-D181E7C4D334}"
++EndProject
+ Global
+ 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+ 		Debug|Any CPU = Debug|Any CPU
+@@ -13,8 +16,15 @@ Global
+ 		{E54FA238-238A-42CE-A889-21031A2B2421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+ 		{E54FA238-238A-42CE-A889-21031A2B2421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+ 		{E54FA238-238A-42CE-A889-21031A2B2421}.Release|Any CPU.Build.0 = Release|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Debug|Any CPU.Build.0 = Debug|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Release|Any CPU.ActiveCfg = Release|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Release|Any CPU.Build.0 = Release|Any CPU
+ 	EndGlobalSection
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+ 	EndGlobalSection
++	GlobalSection(ExtensibilityGlobals) = postSolution
++		SolutionGuid = {06358B53-0E38-4098-9064-E99CCF379AB9}
++	EndGlobalSection
+ EndGlobal
+-- 
+2.44.0.windows.1
+

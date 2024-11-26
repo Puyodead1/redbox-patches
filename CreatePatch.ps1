@@ -17,7 +17,10 @@ if (-not $CommitName) {
 
 # Define the base folder and patches directory
 $baseFolder = Join-Path $FolderName "export"
-$patchesFolder = Join-Path $FolderName "..\Patches"
+$patchesFolder = Join-Path $FolderName "..\..\Patches"
+
+# Navigate to the base folder
+Set-Location -Path $baseFolder
 
 # Ensure the patches folder exists
 if (-not (Test-Path $patchesFolder)) {
@@ -25,8 +28,6 @@ if (-not (Test-Path $patchesFolder)) {
     Write-Host "Created Patches directory: $patchesFolder"
 }
 
-# Navigate to the base folder
-Set-Location -Path $baseFolder
 
 # Add all changes to Git
 Write-Host "Adding all changes to Git..."
@@ -42,7 +43,7 @@ git format-patch -1
 
 # Move the patch file to the Patches folder
 Write-Host "Moving patch file to Patches directory..."
-Move-Item -Path *.patch -Destination $patchesFolder
+Move-Item -Path *.patch -Destination (Resolve-Path -Path $patchesFolder).Path -Force
 
 Write-Host "Patch file moved to $patchesFolder."
 
