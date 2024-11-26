@@ -8,6 +8,12 @@ if (-not $FolderName) {
     exit
 }
 
+$initialDirectory = Get-Location
+
+# Call Clean.ps1 with FolderName as argument
+Write-Host "Running Clean..."
+& ".\Clean.ps1" -FolderName $FolderName
+
 # Define the path to the patches directory
 $patchesDirectory = Join-Path $FolderName "patches"
 
@@ -26,10 +32,7 @@ if ($patchFiles.Count -eq 0) {
     exit
 }
 
-# Change to the folder where the Git repository is located
-Set-Location -Path $FolderName
-
-$baseFolder = "export"
+$baseFolder = Join-Path $FolderName "export"
 
 # Check if the base folder exists
 if (-not (Test-Path $baseFolder)) {
@@ -37,12 +40,15 @@ if (-not (Test-Path $baseFolder)) {
     exit
 }
 
+Set-Location $baseFolder
+
 foreach ($patch in $patchFiles) {
     Write-Host "Applying patch: $($patch.FullName)"
     
     try {
-		# We need to exclude patching .sln files, because they always change and cannot be patched correctly
-        git apply --directory=$baseFolder --exclude=export/$FolderName/$FolderName.sln $patch.FullName
+        # We need to exclude patching .sln files, because they always change and cannot be patched correctly
+        git init
+        git apply --exclude=$FolderName/$FolderName.sln $patch.FullName
         Write-Host "Successfully applied patch: $($patch.Name)"
     }
     catch {
@@ -50,6 +56,6 @@ foreach ($patch in $patchFiles) {
     }
 }
 
-Set-Location -Path ..
+Set-Location -Path $initialDirectory
 
 Write-Host "Patch application process is complete."

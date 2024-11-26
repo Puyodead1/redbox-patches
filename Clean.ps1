@@ -20,29 +20,15 @@ foreach ($file in $files) {
     # Read the content of the file
     $content = Get-Content $file.FullName
 
-    # Flag to mark when we reach the first non-comment line
-    $foundNonComment = $false
-
     # Create a list to store the modified content
     $newContent = @()
 
     foreach ($line in $content) {
-        # Check for non-comment lines
-        if ($foundNonComment -eq $false) {
-            # If the line is a comment or empty, skip it
-            if ($line -match '^\s*//') {
-                # Skip comment lines
-                continue
-            } elseif ($line -match '^\s*$') {
-                # Skip empty lines
-                continue
-            } else {
-                # Once we find the first non-comment line, we can start adding to the new content list
-                $foundNonComment = $true
-            }
+        # Skip lines with 'nullable disable' and comments (but not the empty lines)
+        if ($line -match '^\s*#nullable disable' -or $line -match '^\s*//') {
+            continue
         }
-
-        # Add all lines after the comments to the new content (this includes using statements and code)
+        # Add non-matching lines (non-empty, non-comment) to the new content list
         $newContent += $line
     }
 
