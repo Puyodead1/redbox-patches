@@ -1,0 +1,133 @@
+From 0ebf25f1a3fc1b8bae3c1b119a825988a7fb7532 Mon Sep 17 00:00:00 2001
+From: Puyodead1 <puyodead@proton.me>
+Date: Mon, 25 Nov 2024 20:18:31 -0500
+Subject: [PATCH] Fix Compile
+
+---
+ Redbox.HAL.Core/Redbox.HAL.Core.csproj        | 23 +++++++++++++------
+ Redbox.HAL.Core/Redbox.HAL.Core.sln           | 16 ++++++++++---
+ .../{Singleton`1.cs => Singleton.cs}          |  0
+ .../{Tokenizer`1.cs => Tokenizer.cs}          |  0
+ .../{TokenizerBase`1.cs => TokenizerBase.cs}  |  0
+ 5 files changed, 29 insertions(+), 10 deletions(-)
+ rename Redbox.HAL.Core/{Singleton`1.cs => Singleton.cs} (100%)
+ rename Redbox.HAL.Core/{Tokenizer`1.cs => Tokenizer.cs} (100%)
+ rename Redbox.HAL.Core/{TokenizerBase`1.cs => TokenizerBase.cs} (100%)
+
+diff --git a/Redbox.HAL.Core/Redbox.HAL.Core.csproj b/Redbox.HAL.Core/Redbox.HAL.Core.csproj
+index 634ef63..6092398 100644
+--- a/Redbox.HAL.Core/Redbox.HAL.Core.csproj
++++ b/Redbox.HAL.Core/Redbox.HAL.Core.csproj
+@@ -1,5 +1,5 @@
+ ﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <!--Project was exported from assembly: U:\2024_11_07_kiosk2_fresh\Program Files\Redbox\halservice\bin\Redbox.HAL.Core.dll-->
+   <PropertyGroup>
+     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+@@ -11,6 +11,12 @@
+     <ApplicationVersion>1.13.0.27</ApplicationVersion>
+     <FileAlignment>512</FileAlignment>
+     <RootNamespace>Redbox.HAL.Core</RootNamespace>
++    <FileUpgradeFlags>
++    </FileUpgradeFlags>
++    <UpgradeBackupLocation>
++    </UpgradeBackupLocation>
++    <OldToolsVersion>3.5</OldToolsVersion>
++	<LangVersion>12.0</LangVersion>
+   </PropertyGroup>
+   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+     <PlatformTarget>AnyCPU</PlatformTarget>
+@@ -32,9 +38,6 @@
+     <WarningLevel>4</WarningLevel>
+   </PropertyGroup>
+   <ItemGroup>
+-    <Reference Include="Redbox.HAL.Component.Model">
+-      <HintPath>lib\Redbox.HAL.Component.Model.dll</HintPath>
+-    </Reference>
+     <Reference Include="System" />
+     <Reference Include="System.Core" />
+     <Reference Include="System.Management" />
+@@ -59,16 +62,16 @@
+     <Compile Include="RedboxSerialPort.cs" />
+     <Compile Include="RedboxSerialPortConfiguration.cs" />
+     <Compile Include="RedboxTimer.cs" />
+-    <Compile Include="Singleton`1.cs" />
++    <Compile Include="Singleton.cs" />
+     <Compile Include="SingletonException.cs" />
+     <Compile Include="StreamTokenReader.cs" />
+     <Compile Include="StringTokenReader.cs" />
+     <Compile Include="TokenType.cs" />
+     <Compile Include="Token.cs" />
+-    <Compile Include="Tokenizer`1.cs" />
++    <Compile Include="Tokenizer.cs" />
+     <Compile Include="StateHandlerAttribute.cs" />
+     <Compile Include="StateResult.cs" />
+-    <Compile Include="TokenizerBase`1.cs" />
++    <Compile Include="TokenizerBase.cs" />
+     <Compile Include="TokenList.cs" />
+     <Compile Include="UsbDeviceSearchResult.cs" />
+     <Compile Include="UsbDeviceService.cs" />
+@@ -89,5 +92,11 @@
+     <Compile Include="Descriptors\QuickReturnDescriptor.cs" />
+     <Compile Include="AssemblyInfo.cs" />
+   </ItemGroup>
++  <ItemGroup>
++    <ProjectReference Include="..\..\..\Redbox.HAL.Component.Model\export\Redbox.HAL.Component.Model\Redbox.HAL.Component.Model.csproj">
++      <Project>{86986977-3d6f-4f59-bc0c-d181e7c4d334}</Project>
++      <Name>Redbox.HAL.Component.Model</Name>
++    </ProjectReference>
++  </ItemGroup>
+   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+ </Project>
+\ No newline at end of file
+diff --git a/Redbox.HAL.Core/Redbox.HAL.Core.sln b/Redbox.HAL.Core/Redbox.HAL.Core.sln
+index 10933fb..6f97fa1 100644
+--- a/Redbox.HAL.Core/Redbox.HAL.Core.sln
++++ b/Redbox.HAL.Core/Redbox.HAL.Core.sln
+@@ -1,8 +1,11 @@
+-
+-Microsoft Visual Studio Solution File, Format Version 10.00
+-# Visual Studio 2008
++Microsoft Visual Studio Solution File, Format Version 12.00
++# Visual Studio Version 17
++VisualStudioVersion = 17.10.35122.118
++MinimumVisualStudioVersion = 10.0.40219.1
+ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redbox.HAL.Core", "Redbox.HAL.Core.csproj", "{3B256763-2065-4304-B9B8-299A882A16B4}"
+ EndProject
++Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redbox.HAL.Component.Model", "..\..\..\Redbox.HAL.Component.Model\export\Redbox.HAL.Component.Model\Redbox.HAL.Component.Model.csproj", "{86986977-3D6F-4F59-BC0C-D181E7C4D334}"
++EndProject
+ Global
+ 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+ 		Debug|Any CPU = Debug|Any CPU
+@@ -13,8 +16,15 @@ Global
+ 		{3B256763-2065-4304-B9B8-299A882A16B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+ 		{3B256763-2065-4304-B9B8-299A882A16B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+ 		{3B256763-2065-4304-B9B8-299A882A16B4}.Release|Any CPU.Build.0 = Release|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Debug|Any CPU.Build.0 = Debug|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Release|Any CPU.ActiveCfg = Release|Any CPU
++		{86986977-3D6F-4F59-BC0C-D181E7C4D334}.Release|Any CPU.Build.0 = Release|Any CPU
+ 	EndGlobalSection
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+ 	EndGlobalSection
++	GlobalSection(ExtensibilityGlobals) = postSolution
++		SolutionGuid = {9081F36F-13E2-494E-9D91-24AD6FBB7C77}
++	EndGlobalSection
+ EndGlobal
+diff --git a/Redbox.HAL.Core/Singleton`1.cs b/Redbox.HAL.Core/Singleton.cs
+similarity index 100%
+rename from Redbox.HAL.Core/Singleton`1.cs
+rename to Redbox.HAL.Core/Singleton.cs
+diff --git a/Redbox.HAL.Core/Tokenizer`1.cs b/Redbox.HAL.Core/Tokenizer.cs
+similarity index 100%
+rename from Redbox.HAL.Core/Tokenizer`1.cs
+rename to Redbox.HAL.Core/Tokenizer.cs
+diff --git a/Redbox.HAL.Core/TokenizerBase`1.cs b/Redbox.HAL.Core/TokenizerBase.cs
+similarity index 100%
+rename from Redbox.HAL.Core/TokenizerBase`1.cs
+rename to Redbox.HAL.Core/TokenizerBase.cs
+-- 
+2.44.0.windows.1
+
